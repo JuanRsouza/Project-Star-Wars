@@ -1,9 +1,12 @@
 import React from 'react';
+import TabelComponent from './components/Table';
 import './App.css';
 
 function App() {
   return (
-    <span>Hello, Apps!</span>
+    <div>
+      <TabelComponent />
+    </div>
   );
 }
 
