@@ -6,6 +6,7 @@ import useFetch from '../hooks/useFetch';
 function AppProvider({ children }) {
   const [filterInput, setFilterInput] = useState('');
   const [newArray, setNewArray] = useState([]);
+
   const { dados } = useFetch();
 
   const filterByName = () => {
@@ -18,12 +19,25 @@ function AppProvider({ children }) {
     }
   };
 
+  const filterByValue = ({ filterColumn, filterComparison, filterValue }) => {
+    const filtered = newArray
+      .filter((obj) => {
+        if (filterComparison === 'maior que') {
+          return Number(obj[filterColumn]) > filterValue;
+        } if (filterComparison === 'menor que') {
+          return Number(obj[filterColumn]) < filterValue;
+        }
+        return Number(obj[filterColumn]) === Number(filterValue);
+      });
+    setNewArray(filtered);
+  };
+
   useEffect(() => {
     filterByName();
   }, [filterInput, dados]);
 
   const values = useMemo(() => ({
-    filterInput, filterByName, setFilterInput, newArray,
+    filterInput, filterByName, setFilterInput, newArray, filterByValue,
   }), [newArray, filterInput]);
 
   return (
