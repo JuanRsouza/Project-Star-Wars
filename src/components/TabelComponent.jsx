@@ -1,31 +1,24 @@
-import useFetch from '../hooks/useFetch';
+import { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
 function TabelComponent() {
-  const { dados } = useFetch('https://swapi.dev/api/planets');
-
-  console.log(dados);
+  const { newArray } = useContext(AppContext);
 
   return (
     <table>
       <thead>
         <tr>
-          <th>name</th>
-          <th>rotation_period</th>
-          <th>orbital_period</th>
-          <th>diameter</th>
-          <th>climate</th>
-          <th>gravity</th>
-          <th>terrain</th>
-          <th>surface_water</th>
-          <th>population</th>
-          <th>films</th>
-          <th>created</th>
-          <th>edited</th>
-          <th>url</th>
+          { newArray.length > 0 && (
+            Object.keys(newArray[0]).map((keyname) => (
+              <th key={ keyname }>
+                {(keyname)}
+              </th>
+            ))
+          )}
         </tr>
       </thead>
       <tbody>
-        {dados.map((planet, index) => (
+        {newArray.map((planet, index) => (
           <tr key={ index }>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>

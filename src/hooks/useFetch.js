@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function useFetch(url) {
+export default function useFetch() {
   const [dados, setDados] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
@@ -8,7 +8,7 @@ export default function useFetch(url) {
   const fetchApi = async () => {
     setLoading(true);
     try {
-      const data = await fetch(url);
+      const data = await fetch('https://swapi.dev/api/planets');
       const json = await data.json();
       const { results } = json;
       const mapDel = results.map((obj) => {
