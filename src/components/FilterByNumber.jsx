@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AppContext from '../context/AppContext';
 
 function FilterByNumber() {
@@ -8,7 +8,7 @@ function FilterByNumber() {
     filterValue: 0,
   });
 
-  const { filterByValue } = useContext(AppContext);
+  const { filterByValue, selectArray, attSelect } = useContext(AppContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setSelectValues({
@@ -19,7 +19,13 @@ function FilterByNumber() {
 
   const handleClick = () => {
     filterByValue(selectValues);
+    attSelect(selectValues.filterColumn);
   };
+
+  useEffect(() => {
+    attSelect();
+    setSelectValues({ ...selectValues, filterColumn: selectArray[0] });
+  }, [selectArray]);
 
   return (
     <div>
@@ -29,11 +35,15 @@ function FilterByNumber() {
         data-testid="column-filter"
         onChange={ handleChange }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {selectArray.map((string) => (
+          <option
+            key={ string }
+            value={ string }
+          >
+            {string}
+          </option>
+
+        ))}
       </select>
 
       <select
