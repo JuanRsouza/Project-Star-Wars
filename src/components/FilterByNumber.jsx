@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from 'react';
 import AppContext from '../context/AppContext';
 
@@ -8,7 +9,12 @@ function FilterByNumber() {
     filterValue: 0,
   });
 
-  const { filterByValue, selectArray, attSelect } = useContext(AppContext);
+  const {
+    filterByValue,
+    selectArray,
+    attSelect,
+    arrayState,
+    objectForArray } = useContext(AppContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setSelectValues({
@@ -20,6 +26,7 @@ function FilterByNumber() {
   const handleClick = () => {
     filterByValue(selectValues);
     attSelect(selectValues.filterColumn);
+    objectForArray(selectValues);
   };
 
   useEffect(() => {
@@ -72,6 +79,16 @@ function FilterByNumber() {
       >
         Filtrar
       </button>
+      <div data-testid="filter">
+        {arrayState.map((el) => `${el} `)}
+        <button
+          type="button"
+          onClick={ removeText() }
+        >
+          excluir
+        </button>
+
+      </div>
 
     </div>
   );

@@ -8,18 +8,9 @@ function AppProvider({ children }) {
   const [newArray, setNewArray] = useState([]);
   const [selectArray, setSelectArray] = useState(['population',
     'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+  const [arrayState, setArrayState] = useState([]);
 
   const { dados } = useFetch();
-
-  // const attSelect = (filterColumn) => {
-
-  //   setSelectArray(selectArray.filter((element) => {
-  //     if (selectArray.length > 1) {
-  //       return element !== filterColumn;
-  //     }
-  //     return [];
-  //   }));
-  // };
 
   const filterByName = () => {
     if (filterInput === '') {
@@ -52,6 +43,11 @@ function AppProvider({ children }) {
     setSelectArray(filterSelect);
   };
 
+  const objectForArray = ({ filterColumn, filterComparison, filterValue }) => {
+    const arrayObject = [filterColumn, filterComparison, filterValue];
+    setArrayState(arrayObject);
+  };
+
   const values = useMemo(() => ({
     filterInput,
     filterByName,
@@ -60,6 +56,8 @@ function AppProvider({ children }) {
     filterByValue,
     attSelect,
     selectArray,
+    objectForArray,
+    arrayState,
   }), [newArray, filterInput]);
 
   return (
