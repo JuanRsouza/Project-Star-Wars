@@ -4,6 +4,7 @@ import './App.css';
 import AppProvider from './context/AppProvider';
 import HeaderFilter from './components/HeaderFilter';
 import FilterByNumber from './components/FilterByNumber';
+import OrderComponent from './components/OrderComponent';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <AppProvider>
         <HeaderFilter />
         <FilterByNumber />
+        <OrderComponent />
         <TabelComponent />
       </AppProvider>
     </div>

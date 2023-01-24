@@ -97,6 +97,7 @@ function FilterByNumber() {
           {`${filterColumn} - ${filterComparison} ${filterValue}`}
           <button
             type="button"
+            data-testid={ `remove-${filterColumn}` }
             onClick={ () => removeText(filterColumn) }
           >
             excluir
