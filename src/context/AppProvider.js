@@ -54,11 +54,9 @@ function AppProvider({ children }) {
   };
 
   const removeAll = () => {
-    if (arrayState.length > 0) {
-      setArrayState([]);
-      setSelectArray(['population',
-        'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
-    }
+    setArrayState([]);
+    setSelectArray(['population',
+      'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
   };
 
   const values = useMemo(() => ({
