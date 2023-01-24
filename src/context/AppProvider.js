@@ -9,7 +9,11 @@ function AppProvider({ children }) {
   const [selectArray, setSelectArray] = useState(['population',
     'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
   const [arrayState, setArrayState] = useState([]);
-  const { dados } = useFetch();
+  const { dados, fetchApi } = useFetch();
+
+  useEffect(() => {
+    fetchApi();
+  }, []);
 
   const filterByName = () => {
     if (filterInput === '') {
@@ -24,32 +28,37 @@ function AppProvider({ children }) {
     filterByName();
   }, [filterInput, dados]);
 
-  const filterByValue = ({ filterColumn, filterComparison, filterValue }) => {
-    const filtered = newArray
-      .filter((obj) => {
-        if (filterComparison === 'maior que') {
-          return Number(obj[filterColumn]) > Number(filterValue);
-        } if (filterComparison === 'menor que') {
-          return Number(obj[filterColumn]) < Number(filterValue);
-        }
-        return Number(obj[filterColumn]) === Number(filterValue);
-      });
-    setNewArray(filtered);
-  };
+  const filterByValue = ({ filterColumn, filterComparison, filterValue }, array) => array
+    .filter((obj) => {
+      if (filterComparison === 'maior que') {
+        return Number(obj[filterColumn]) > Number(filterValue);
+      } if (filterComparison === 'menor que') {
+        return Number(obj[filterColumn]) < Number(filterValue);
+      }
+      return Number(obj[filterColumn]) === Number(filterValue);
+    });
 
   const attSelect = (column) => {
     const filterSelect = selectArray.filter((opt) => opt !== column);
     setSelectArray(filterSelect);
   };
 
-  const objectForArray = ({ filterColumn, filterComparison, filterValue }) => {
-    const arrayObject = [
-      `${filterColumn}  ${filterComparison} ${filterValue}`];
-    setArrayState(arrayObject);
+  const objectForArray = (objectFilter) => {
+    setArrayState([...arrayState, objectFilter]);
   };
 
-  const removeText = (el) => {
-    setArrayState(arrayState.filter((button) => !button.includes(el)));
+  const removeText = (column) => {
+    setArrayState(arrayState.filter((obj) => obj.filterColumn !== column));
+
+    setSelectArray([...selectArray, column]);
+  };
+
+  const removeAll = () => {
+    if (arrayState.length > 0) {
+      setArrayState([]);
+      setSelectArray(['population',
+        'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+    }
   };
 
   const values = useMemo(() => ({
@@ -61,8 +70,11 @@ function AppProvider({ children }) {
     attSelect,
     selectArray,
     objectForArray,
+    removeAll,
     arrayState,
     removeText,
+    setNewArray,
+    dados,
   }), [newArray, filterInput, arrayState]);
 
   return (

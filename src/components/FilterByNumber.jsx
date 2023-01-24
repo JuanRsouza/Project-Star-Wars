@@ -13,9 +13,12 @@ function FilterByNumber() {
     filterByValue,
     selectArray,
     attSelect,
+    dados,
     arrayState,
     objectForArray,
-    removeText } = useContext(AppContext);
+    removeAll,
+    removeText,
+    setNewArray } = useContext(AppContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setSelectValues({
@@ -25,10 +28,15 @@ function FilterByNumber() {
   };
 
   const handleClick = () => {
-    filterByValue(selectValues);
     attSelect(selectValues.filterColumn);
     objectForArray(selectValues);
   };
+
+  useEffect(() => {
+    const filteredArrayPlanets = arrayState
+      .reduce((array, obj) => filterByValue(obj, array), dados);
+    setNewArray(filteredArrayPlanets);
+  }, [arrayState]);
 
   useEffect(() => {
     attSelect();
@@ -81,20 +89,28 @@ function FilterByNumber() {
         Filtrar
       </button>
 
-      {arrayState.map((el) => (
+      {arrayState.map(({ filterColumn, filterComparison, filterValue }) => (
         <div
           data-testid="filter"
-          key={ el }
+          key={ filterColumn }
         >
-          {`${el} `}
+          {`${filterColumn} - ${filterComparison} ${filterValue}`}
           <button
             type="button"
-            onClick={ () => removeText(el) }
+            onClick={ () => removeText(filterColumn) }
           >
             excluir
           </button>
         </div>
       ))}
+
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ () => removeAll() }
+      >
+        Excluir Filtros
+      </button>
 
     </div>
   );

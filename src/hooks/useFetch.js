@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function useFetch() {
   const [dados, setDados] = useState([]);
@@ -25,11 +25,7 @@ export default function useFetch() {
     }
   };
 
-  useEffect(() => {
-    fetchApi();
-  }, []);
-
-  return { dados, loading, errors };
+  return { dados, loading, errors, fetchApi };
 }
 
 //
