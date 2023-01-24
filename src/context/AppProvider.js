@@ -9,7 +9,6 @@ function AppProvider({ children }) {
   const [selectArray, setSelectArray] = useState(['population',
     'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
   const [arrayState, setArrayState] = useState([]);
-
   const { dados } = useFetch();
 
   const filterByName = () => {
@@ -44,8 +43,13 @@ function AppProvider({ children }) {
   };
 
   const objectForArray = ({ filterColumn, filterComparison, filterValue }) => {
-    const arrayObject = [filterColumn, filterComparison, filterValue];
+    const arrayObject = [
+      `${filterColumn}  ${filterComparison} ${filterValue}`];
     setArrayState(arrayObject);
+  };
+
+  const removeText = (el) => {
+    setArrayState(arrayState.filter((button) => !button.includes(el)));
   };
 
   const values = useMemo(() => ({
@@ -58,7 +62,8 @@ function AppProvider({ children }) {
     selectArray,
     objectForArray,
     arrayState,
-  }), [newArray, filterInput]);
+    removeText,
+  }), [newArray, filterInput, arrayState]);
 
   return (
     <AppContext.Provider value={ values }>

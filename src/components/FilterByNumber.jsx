@@ -14,7 +14,8 @@ function FilterByNumber() {
     selectArray,
     attSelect,
     arrayState,
-    objectForArray } = useContext(AppContext);
+    objectForArray,
+    removeText } = useContext(AppContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setSelectValues({
@@ -79,16 +80,21 @@ function FilterByNumber() {
       >
         Filtrar
       </button>
-      <div data-testid="filter">
-        {arrayState.map((el) => `${el} `)}
-        <button
-          type="button"
-          onClick={ removeText() }
-        >
-          excluir
-        </button>
 
-      </div>
+      {arrayState.map((el) => (
+        <div
+          data-testid="filter"
+          key={ el }
+        >
+          {`${el} `}
+          <button
+            type="button"
+            onClick={ () => removeText(el) }
+          >
+            excluir
+          </button>
+        </div>
+      ))}
 
     </div>
   );
