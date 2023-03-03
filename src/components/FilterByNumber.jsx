@@ -44,74 +44,83 @@ function FilterByNumber() {
   }, [selectArray]);
 
   return (
-    <div>
-      <select
-        name="filterColumn"
-        value={ selectValues.filterColumn }
-        data-testid="column-filter"
-        onChange={ handleChange }
-      >
-        {selectArray.map((string) => (
-          <option
-            key={ string }
-            value={ string }
-          >
-            {string}
-          </option>
-
-        ))}
-      </select>
-
-      <select
-        name="filterComparison"
-        value={ selectValues.filterComparison }
-        data-testid="comparison-filter"
-        onChange={ handleChange }
-      >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-
-      <input
-        type="number"
-        value={ selectValues.filterValue }
-        name="filterValue"
-        data-testid="value-filter"
-        onChange={ handleChange }
-      />
-
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ handleClick }
-      >
-        Filtrar
-      </button>
-
-      {arrayState.map(({ filterColumn, filterComparison, filterValue }) => (
-        <div
-          data-testid="filter"
-          key={ filterColumn }
+    <div className="dad-filters">
+      <div className="first-filters">
+        <select
+          className="select"
+          name="filterColumn"
+          value={ selectValues.filterColumn }
+          data-testid="column-filter"
+          onChange={ handleChange }
         >
-          {`${filterColumn} - ${filterComparison} ${filterValue}`}
-          <button
-            type="button"
-            data-testid={ `remove-${filterColumn}` }
-            onClick={ () => removeText(filterColumn) }
-          >
-            excluir
-          </button>
-        </div>
-      ))}
+          {selectArray.map((string) => (
+            <option
+              key={ string }
+              value={ string }
+            >
+              {string}
+            </option>
 
-      <button
-        type="button"
-        data-testid="button-remove-filters"
-        onClick={ () => removeAll() }
-      >
-        Excluir Filtros
-      </button>
+          ))}
+        </select>
+
+        <select
+          name="filterComparison"
+          className="select"
+          value={ selectValues.filterComparison }
+          data-testid="comparison-filter"
+          onChange={ handleChange }
+        >
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
+        </select>
+
+        <input
+          type="number"
+          value={ selectValues.filterValue }
+          name="filterValue"
+          data-testid="value-filter"
+          onChange={ handleChange }
+        />
+
+        <button
+          className="buttons"
+          type="button"
+          data-testid="button-filter"
+          onClick={ handleClick }
+        >
+          Filtrar
+        </button>
+
+        <button
+          type="button"
+          className="buttons"
+          data-testid="button-remove-filters"
+          onClick={ () => removeAll() }
+        >
+          Excluir Filtros
+        </button>
+      </div>
+
+      <div className="active-filters">
+        {arrayState.map(({ filterColumn, filterComparison, filterValue }) => (
+          <div
+            data-testid="filter"
+            key={ filterColumn }
+          >
+            {`${filterColumn} - ${filterComparison} ${filterValue}`}
+            <button
+              type="button"
+              data-testid={ `remove-${filterColumn}` }
+              onClick={ () => removeText(filterColumn) }
+            >
+              excluir
+            </button>
+          </div>
+        ))}
+
+      </div>
 
     </div>
   );

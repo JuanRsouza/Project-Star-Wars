@@ -10,18 +10,17 @@ export default function HeaderFilter() {
 
   return (
     <div>
-      <label htmlFor="filter-input">
-        Filtro
-        <input
-          id="filter-input"
-          name="filterInput"
-          type="text"
-          data-testid="name-filter"
-          value={ filterInput }
-          onChange={ handleChange }
-        />
 
-      </label>
+      <input
+        id="filter-input"
+        name="filterInput"
+        type="text"
+        className="search-bar"
+        data-testid="name-filter"
+        value={ filterInput }
+        onChange={ handleChange }
+      />
+
     </div>
   );
 }

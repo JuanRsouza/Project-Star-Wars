@@ -2,8 +2,9 @@ import React from 'react';
 
 function OrderComponent() {
   return (
-    <div>
+    <div className="order-filters">
       <select
+        className="select"
         name=""
         data-testid="column-sort"
       >
@@ -37,7 +38,7 @@ function OrderComponent() {
 
       </label>
 
-      <button data-testid="column-sort-button">Ordenar</button>
+      <button className="buttons" data-testid="column-sort-button">Ordenar</button>
     </div>
   );
 }

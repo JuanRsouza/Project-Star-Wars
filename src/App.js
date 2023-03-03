@@ -5,17 +5,23 @@ import AppProvider from './context/AppProvider';
 import HeaderFilter from './components/HeaderFilter';
 import FilterByNumber from './components/FilterByNumber';
 import OrderComponent from './components/OrderComponent';
+import Logo from './components/Logo';
 
 function App() {
   return (
-    <div>
-      <AppProvider>
-        <HeaderFilter />
-        <FilterByNumber />
-        <OrderComponent />
+    <AppProvider>
+      <Logo />
+      <div className="main-div">
+        <div className="filters">
+          <HeaderFilter />
+          <div className="filters-in-line">
+            <FilterByNumber />
+            <OrderComponent />
+          </div>
+        </div>
         <TabelComponent />
-      </AppProvider>
-    </div>
+      </div>
+    </AppProvider>
   );
 }
 
